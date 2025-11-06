@@ -1,0 +1,13 @@
+﻿<h1>Create Booking</h1>
+
+<form asp-controller="Booking" asp-action="CreateBooking" method="post">
+    <label>Guest Name:</label>
+    <input type="text" name="guestName" />
+    <br />
+    <label>Room Number:</label>
+    <input type="number" name="roomNumber" />
+    <br />
+    <button type="submit">Add Booking</button>
+</form>
+
+<a asp-controller="Booking" asp-action="Index">Back to Bookings</a>
