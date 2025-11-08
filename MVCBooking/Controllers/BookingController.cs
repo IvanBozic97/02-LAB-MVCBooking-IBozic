@@ -6,7 +6,7 @@ namespace MVCBooking.Controllers
 {
     public class BookingController : Controller
     {
-        // Privremena lista bookinga
+        // Privremena lista booking
         private static List<HotelBooking> _bookings = new List<HotelBooking>();
         private static int _nextID = 1;
 
