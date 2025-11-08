@@ -1,41 +1,37 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MVCBooking.Models;
-using System.Collections.Generic;
 
 namespace MVCBooking.Controllers
 {
     public class BookingController : Controller
     {
-        // Privremena lista booking
-        private static List<HotelBooking> _bookings = new List<HotelBooking>();
-        private static int _nextID = 1;
+        private static readonly List<HotelBooking> _bookings = new();
+        private static int _nextId = 1;
 
-        // GET: /Booking
         public IActionResult Index()
         {
-            // Ako je bookings null, inicijaliziraj praznom listom
             return View(_bookings);
         }
 
-
-        // GET: /Booking/Create
+        [HttpGet]
         public IActionResult Create()
         {
             return View(new HotelBooking());
         }
 
-        // POST: /Booking/CreateBooking
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult CreateBooking(HotelBooking booking)
         {
-            if (!ModelState.IsValid || string.IsNullOrWhiteSpace(booking.GuestName) || booking.RoomNumber <= 0)
+            if (!ModelState.IsValid)
             {
                 return View("Create", booking);
             }
 
-            booking.Id = _nextID++;
+            booking.Id = _nextId++;
             _bookings.Add(booking);
-            return RedirectToAction("Index");
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }
